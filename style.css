@@ -834,18 +834,18 @@ img {
 
 .faq-answer {
     padding: 0 20px;
-    max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, padding 0.3s ease;
     background: var(--light-text);
     font-size: 16px;
     color: var(--medium-text);
     line-height: 1.7;
+    height: auto;
 }
 
 .faq-answer.active {
     padding: 20px;
-    max-height: 300px;
+    height: auto;
 }
 
 /* ===== Contact Section ===== */
@@ -925,6 +925,7 @@ img {
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.2);
 }
+
 
 /* ===== Footer ===== */
 .footer {
@@ -1183,7 +1184,52 @@ img {
     font-weight: bold;
 }
 
+/* service modal */
+.service-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
 
+.service-modal .modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    position: relative;
+}
+
+.service-modal img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin: 15px 0;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.btn-book {
+    background: #E67E22;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
 
 /* ===== Responsive Styles ===== */
 @media (max-width: 1200px) {
