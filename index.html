@@ -8,29 +8,32 @@
 </head>
 <body>
 <div class="container"> 
-    <nav>
-       <button class="hamburger" id="hamburger" aria-label="Menu">
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
             
-            <div class="left-nav" id="navLinks">
+            <div class="nav-links left-nav" id="navLinks">
                 <a href="#hero-section">Home</a>
                 <a href="#about-section">About</a>
                 <a href="#services-section">Services</a>
             </div>
             
             <div class="logo">
-                <img src="images/SafariSol Logo.png" alt="SafariSol Logo">
+                <h1>SafariSol</h1>
             </div>
             
-            <div class="right-nav" id="navLinks">
+            <div class="nav-links right-nav">
                 <a href="#guides-section">Our Guides</a>
                 <a href="#resources-section">Resources</a>
                 <a href="#contact-section">Contact</a>
             </div>
+        </div>
     </nav>
+
     
     <!-- Hero section -->
     <section id="hero-section">
@@ -91,71 +94,64 @@
 
     <!-- Services Section -->
     <section id="services-section" class="services-section">
-        <div class="section-container">
-            <div class="section-header">
-                <p class="section-label">OUR SERVICES</p>
-                <h2>Your Gateway to Magical Kenya</h2>
-                <p class="section-subtitle">Discover unforgettable experiences crafted to showcase the very best of Kenya's natural beauty, rich culture, and thrilling adventures.</p>
+        <div class="container">
+            <div class="services-header">
+                <h2 class="section-label">Our Services</h2>
+                <h3>Your Gateway to Magical Kenya</h3>
+                <p>Discover unforgettable experiences crafted to showcase the very best of Kenya's natural beauty, rich culture, and thrilling adventures.</p>
             </div>
             
-            <div class="service-cards">
-                <div class="service-card">
+            <div class="services-grid">
+                <div class="service-card wildlife">
                     <div class="service-icon">🦁</div>
-                    <h3 class="service-title">Safaris & Wildlife Tours</h3>
-                    <p class="service-description">
-                        Experience Kenya's Big Five and more in stunning national parks.
-                    </p>
-                    <a href="#" class="learn-more-btn">Learn More</a>
+                    <h4>Safaris & Wildlife Tours</h4>
+                    <p>Experience Kenya's Big Five and more in stunning national parks.</p>
+                    <button class="learn-more-btn" onclick="learnMore('wildlife')">Learn More</button>
                 </div>
-
-                <div class="service-card">
+                
+                <div class="service-card culture">
                     <div class="service-icon">🎭</div>
-                    <h3 class="service-title">Cultural Experiences</h3>
-                    <p class="service-description">
-                        Dive into authentic traditions, cuisine, and communities.
-                    </p>
-                    <a href="#" class="learn-more-btn">Learn More</a>
+                    <h4>Cultural Experiences</h4>
+                    <p>Dive into authentic traditions, cuisine, and communities.</p>
+                    <button class="learn-more-btn" onclick="learnMore('culture')">Learn More</button>
                 </div>
-
-                <div class="service-card">
+                
+                <div class="service-card coast">
                     <div class="service-icon">🏖️</div>
-                    <h3 class="service-title">Coastal Escapes & Island Tours</h3>
-                    <p class="service-description">
-                        Relax on Kenya's beautiful beaches and explore marine life.
-                    </p>
-                    <a href="#" class="learn-more-btn">Learn More</a>
+                    <h4>Coastal Escapes & Island Tours</h4>
+                    <p>Relax on Kenya's beautiful beaches and explore marine life.</p>
+                    <button class="learn-more-btn" onclick="learnMore('coast')">Learn More</button>
                 </div>
-
-                <div class="service-card">
+                
+                <div class="service-card mountain">
                     <div class="service-icon">🏔️</div>
-                    <h3 class="service-title">Adventure Sports & Hikes</h3>
-                    <p class="service-description">
-                        From Mt. Kenya treks to zip-lining in Kereita.
-                    </p>
-                    <a href="#" class="learn-more-btn">Learn More</a>
+                    <h4>Adventure Sports & Hikes</h4>
+                    <p>From Mt. Kenya treks to zip-lining in Kereita.</p>
+                    <button class="learn-more-btn" onclick="learnMore('mountain')">Learn More</button>
                 </div>
             </div>
         </div>
+       
     </section>
 
     <!-- Testimonials Section -->
     <section class="testimonials">
-        <div class="section-container">
+        <div class="container">
             <div class="testimonials-content">
-                <div class="section-header">
+                <div class="testimonials-header">
                     <p class="section-label">TESTIMONIALS</p>
                     <h2>What Our Travelers Are Saying</h2>
-                    <p class="section-subtitle">Positive experiences from adventurers who have discovered the magic of Kenya with SafariSol</p>
+                    <p>Positive experiences from adventurers who have discovered the magic of Kenya with SafariSol</p>
                 </div>
                 
                 <div class="testimonial-slider">
                     <div class="testimonial-card active" id="testimonial-1">
-                        <p class="testimonial-text">"The Maasai Mara safari was the highlight of our honeymoon! Everything was professionally arranged, and our guide was incredibly knowledgeable. We saw all of the Big Five and created memories that will last a lifetime."</p>
+                        <p>"The Maasai Mara safari was the highlight of our honeymoon! Everything was professionally arranged, and our guide was incredibly knowledgeable. We saw all of the Big Five and created memories that will last a lifetime."</p>
                         <div class="testimonial-author">— Grace & Emmanuel, Nairobi</div>
                     </div>
                     
                     <div class="testimonial-card" id="testimonial-2">
-                        <p class="testimonial-text">"SafariSol made our family trip to Kenya absolutely unforgettable. The cultural experiences were authentic, and the kids loved every moment. Highly recommend their personalized service!"</p>
+                        <p>"SafariSol made our family trip to Kenya absolutely unforgettable. The cultural experiences were authentic, and the kids loved every moment. Highly recommend their personalized service!"</p>
                         <div class="testimonial-author">— The Johnson Family, USA</div>
                     </div>
                 </div>
@@ -231,7 +227,7 @@
         <div class="section-container">
             <div class="faq-grid">
                 <div class="faq-image">
-                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=500&h=600&fit=crop" alt="Big Five Kenya Safari">
+                    <img src="images/cheetah.jpg" alt="a cheetah">
                 </div>
                 
                 <div class="faq-content">
@@ -391,7 +387,7 @@
                 </div>
                 
                 <div class="footer-image">
-                    <img src="images/SafariSol Logo.png" alt="Safari animals in Kenya">
+                    <img src="images/SafariSol Logo.png" alt="SafariSol Logo">
                 </div>
             </div>
             
