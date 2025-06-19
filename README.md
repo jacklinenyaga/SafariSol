@@ -37,4 +37,4 @@ Mobile: < 768px
 Tablet: 768px - 1024px
 Desktop: > 1024px
 
-#NETLIFY LINK - https://zesty-tapioca-b7ddde.netlify.app/
+#NETLIFY LINK - https://endearing-pothos-8b5903.netlify.app/
