@@ -240,6 +240,57 @@ img {
     transform: translateY(-9px) rotate(-45deg);
 }
 
+/* Mobile Navigation Styles */
+#navLinks {
+    /* Your existing nav styles */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* For mobile view */
+@media (max-width: 1024px) {
+    .hamburger {
+        display: flex;
+    }
+
+    #navLinks {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+    }
+
+    #navLinks.active {
+        right: 0;
+    }
+
+    /* Optional overlay effect */
+    #navLinks::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    #navLinks.active::before {
+        opacity: 1;
+    }
+}
+
 /* ===== Hero Section ===== */
 #hero-section {
     display: flex;
