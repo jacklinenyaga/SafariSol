@@ -1,124 +1,159 @@
-// About Modal Functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Get modal elements
+    // ===== Mobile Navigation =====
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    // Toggle mobile menu
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        hamburger.setAttribute('aria-expanded', hamburger.classList.contains('active'));
+    }
+    
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking on nav links
+        const navAnchors = document.querySelectorAll('#navLinks a');
+        navAnchors.forEach(anchor => {
+            anchor.addEventListener('click', toggleMenu);
+        });
+    }
+
+    // ===== About Modal =====
     const modal = document.getElementById('aboutModal');
     const aboutLink = document.getElementById('aboutLink');
     const closeBtn = document.querySelector('.close-modal');
     const contactBtn = document.querySelector('.btn-contact');
     
     // Open modal when About link is clicked
-    aboutLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    });
+    if (aboutLink) {
+        aboutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    }
     
     // Close modal when X is clicked
-    closeBtn.addEventListener('click', function() {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    }
     
     // Close modal when clicking outside content
     window.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
     });
     
     // Contact button functionality
-    contactBtn.addEventListener('click', function() {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-      // Scroll to contact section
-      document.querySelector('#contact-section').scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
+    if (contactBtn) {
+        contactBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Scroll to contact section
+            document.querySelector('#contact-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    }
     
     // Close with Escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal.style.display === 'block') {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
     });
-  });
 
-
-
-  // Service Card Button Functionality
-function learnMore(serviceType) {
-    // Define content for each service type
-    const serviceDetails = {
-      wildlife: {
-        title: "Safaris & Wildlife Tours",
-        description: "Immerse yourself in Kenya's world-famous national parks. Our expert-guided tours guarantee sightings of the Big Five (lion, leopard, rhino, elephant, and buffalo) in their natural habitats. Includes game drives, bush walks, and luxury camp stays.",
-        image: "images/game3.JPG"
-      },
-      culture: {
-        title: "Cultural Experiences",
-        description: "Authentic interactions with Maasai, Samburu, and Swahili communities. Participate in traditional ceremonies, sample local cuisine, and learn ancient crafts. Ethical tourism that directly benefits local villages.",
-        image: "images/culture.jpg"
-      },
-      coast: {
-        title: "Coastal Escapes",
-        description: "Pristine beaches of Diani, Watamu, and Lamu. Snorkeling in marine parks, dhow sailing trips, and Swahili cultural tours. Luxury beachfront resorts and private island getaways.",
-        image: "images/beach1.JPG"
-      },
-      mountain: {
-        title: "Adventure Sports",
-        description: "Summit Mount Kenya, hike through Aberdare ranges, or zip-line through Kereita Forest. White-water rafting on the Tana River and mountain biking trails. All equipment and expert guides provided.",
-        image: "images/profile.webp"
-      }
-    };
-  
-    // Get the service details
-    const service = serviceDetails[serviceType];
+    // ===== Service Cards =====
+    function learnMore(serviceType) {
+        // Define content for each service type
+        const serviceDetails = {
+            wildlife: {
+                title: "Safaris & Wildlife Tours",
+                description: "Immerse yourself in Kenya's world-famous national parks. Our expert-guided tours guarantee sightings of the Big Five (lion, leopard, rhino, elephant, and buffalo) in their natural habitats. Includes game drives, bush walks, and luxury camp stays.",
+                image: "images/game3.JPG"
+            },
+            culture: {
+                title: "Cultural Experiences",
+                description: "Authentic interactions with Maasai, Samburu, and Swahili communities. Participate in traditional ceremonies, sample local cuisine, and learn ancient crafts. Ethical tourism that directly benefits local villages.",
+                image: "images/culture.jpg"
+            },
+            coast: {
+                title: "Coastal Escapes",
+                description: "Pristine beaches of Diani, Watamu, and Lamu. Snorkeling in marine parks, dhow sailing trips, and Swahili cultural tours. Luxury beachfront resorts and private island getaways.",
+                image: "images/beach1.JPG"
+            },
+            mountain: {
+                title: "Adventure Sports",
+                description: "Summit Mount Kenya, hike through Aberdare ranges, or zip-line through Kereita Forest. White-water rafting on the Tana River and mountain biking trails. All equipment and expert guides provided.",
+                image: "images/profile.webp"
+            }
+        };
+        
+        // Get the service details
+        const service = serviceDetails[serviceType];
+        
+        // Create and display modal
+        const modalHTML = `
+            <div class="service-modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3>${service.title}</h3>
+                    <img src="${service.image}" alt="${service.title}" loading="lazy">
+                    <p>${service.description}</p>
+                    <button class="btn-book" onclick="bookService('${serviceType}')">Book Now</button>
+                </div>
+            </div>
+        `;
+        
+        // Add modal to body
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        // Add event listeners
+        document.querySelector('.service-modal .close-modal').addEventListener('click', closeServiceModal);
+        document.querySelector('.service-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeServiceModal();
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', function serviceModalKeyHandler(e) {
+            if (e.key === 'Escape') {
+                closeServiceModal();
+                document.removeEventListener('keydown', serviceModalKeyHandler);
+            }
+        });
+    }
     
-    // Create and display modal
-    const modalHTML = `
-      <div class="service-modal">
-        <div class="modal-content">
-          <span class="close-modal">&times;</span>
-          <h3>${service.title}</h3>
-          <img src="${service.image}" alt="${service.title}">
-          <p>${service.description}</p>
-          <button class="btn-book" onclick="bookService('${serviceType}')">Book Now</button>
-        </div>
-      </div>
-    `;
+    window.learnMore = learnMore;
     
-    // Add modal to body
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    function closeServiceModal() {
+        const modal = document.querySelector('.service-modal');
+        if (modal) modal.remove();
+    }
     
-    // Add event listeners
-    document.querySelector('.close-modal').addEventListener('click', closeServiceModal);
-    document.querySelector('.service-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeServiceModal();
-    });
-  }
-  
-  function closeServiceModal() {
-    const modal = document.querySelector('.service-modal');
-    if (modal) modal.remove();
-  }
+    window.closeServiceModal = closeServiceModal;
+    
+    function bookService(serviceType) {
+        alert(`Booking request received for ${serviceType} package! We'll contact you shortly.`);
+        closeServiceModal();
+    }
+    
+    window.bookService = bookService;
 
-  
-  function bookService(serviceType) {
-    alert(`Booking request received for ${serviceType} package! We'll contact you shortly.`);
-    closeServiceModal();
-  }
-
-
-  // Testimonial Slider Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all testimonials and dots
+    // ===== Testimonials Slider =====
     const testimonials = document.querySelectorAll('.testimonial-card');
     const dots = document.querySelectorAll('.dot');
+    let currentIndex = 1;
+    let rotationInterval;
     
-    // Function to show a specific testimonial
     function showTestimonial(index) {
         // Hide all testimonials
         testimonials.forEach(testimonial => {
@@ -140,46 +175,70 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedDot) {
             selectedDot.classList.add('active');
         }
+        
+        currentIndex = index;
     }
     
-    // Make the function available globally for the onclick attributes
-    window.showTestimonial = showTestimonial;
-    
-    // Optional: Auto-rotate testimonials every 5 seconds
-    let currentIndex = 1;
-    const totalTestimonials = testimonials.length;
-    
     function autoRotateTestimonials() {
+        const totalTestimonials = testimonials.length;
         currentIndex = currentIndex % totalTestimonials + 1;
         showTestimonial(currentIndex);
     }
     
-    // Start auto-rotation (comment out if you don't want this feature)
-    const rotationInterval = setInterval(autoRotateTestimonials, 5000);
-    
-    // Pause auto-rotation when hovering over testimonials
-    const sliderContainer = document.querySelector('.testimonial-slider');
-    if (sliderContainer) {
-        sliderContainer.addEventListener('mouseenter', () => {
-            clearInterval(rotationInterval);
-        });
+    // Initialize slider if testimonials exist
+    if (testimonials.length > 0) {
+        // Start with first testimonial
+        showTestimonial(1);
         
-        sliderContainer.addEventListener('mouseleave', () => {
-            rotationInterval = setInterval(autoRotateTestimonials, 5000);
-        });
+        // Start auto-rotation
+        rotationInterval = setInterval(autoRotateTestimonials, 5000);
+        
+        // Pause auto-rotation when hovering over testimonials
+        const sliderContainer = document.querySelector('.testimonial-slider');
+        if (sliderContainer) {
+            sliderContainer.addEventListener('mouseenter', () => {
+                clearInterval(rotationInterval);
+            });
+            
+            sliderContainer.addEventListener('mouseleave', () => {
+                rotationInterval = setInterval(autoRotateTestimonials, 5000);
+            });
+            
+            // Touch events for mobile swipe
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            sliderContainer.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                clearInterval(rotationInterval);
+            }, {passive: true});
+            
+            sliderContainer.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+                rotationInterval = setInterval(autoRotateTestimonials, 5000);
+            }, {passive: true});
+            
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left - next testimonial
+                    autoRotateTestimonials();
+                }
+                if (touchEndX > touchStartX + 50) {
+                    // Swipe right - previous testimonial
+                    const totalTestimonials = testimonials.length;
+                    currentIndex = (currentIndex - 2 + totalTestimonials) % totalTestimonials + 1;
+                    showTestimonial(currentIndex);
+                }
+            }
+        }
     }
-});
-
-
-// Contact Form Functionality
-// Contact Form with Modal Close Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all necessary elements
-    const contactForm = document.getElementById('contactForm');
-    const contactModal = document.querySelector('.contact .modal'); // Adjusted selector
-    const closeButtons = document.querySelectorAll('.close-modal');
     
-    // Form submission handler
+    window.showTestimonial = showTestimonial;
+
+    // ===== Contact Form =====
+    const contactForm = document.getElementById('contactForm');
+    
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -211,90 +270,45 @@ document.addEventListener('DOMContentLoaded', function() {
             // Submit form
             submitContactForm(formData);
         });
-    }
-    
-    // Close modal functionality
-    function setupModalClose() {
-        // Close button
-        closeButtons.forEach(btn => {
-            btn.addEventListener('click', closeModal);
-        });
         
-        // Close when clicking outside
-        if (contactModal) {
-            contactModal.addEventListener('click', function(e) {
-                if (e.target === contactModal) {
-                    closeModal();
-                }
-            });
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
         }
         
-        // Close with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && contactModal.style.display === 'block') {
-                closeModal();
-            }
-        });
-    }
-    
-    // Close modal function
-    function closeModal() {
-        const modal = document.querySelector('.contact .modal');
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+        // Form submission
+        function submitContactForm(formData) {
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Simulate network request
+            setTimeout(() => {
+                // Show success message
+                alert(`Thank you, ${formData.name}! We'll contact you soon.`);
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
         }
     }
     
-    // Email validation
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-    
-    // Form submission
-    function submitContactForm(formData) {
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        
-        // Show loading state
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        
-        // Simulate network request
-        setTimeout(() => {
-            // Show success message
-            alert(`Thank you, ${formData.name}! We'll contact you soon.`);
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Close the modal
-            closeModal();
-            
-            // Reset button
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
-    }
-    
-    // Initialize modal close functionality
-    setupModalClose();
-    
-    // Make functions available globally if needed
-    window.closeModal = closeModal;
     window.submitForm = function(e) {
         e.preventDefault();
         if (contactForm) {
             contactForm.dispatchEvent(new Event('submit'));
         }
     };
-});
 
-
-// FAQ Accordion Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all FAQ items
+    // ===== FAQ Accordion =====
     const faqItems = document.querySelectorAll('.faq-item');
     
     // Initialize each FAQ item
@@ -307,6 +321,8 @@ document.addEventListener('DOMContentLoaded', function() {
         answer.style.maxHeight = '0';
         answer.style.opacity = '0';
         answer.style.overflow = 'hidden';
+        answer.style.padding = '0';
+        question.setAttribute('aria-expanded', 'false');
         
         // Click handler for each question
         question.addEventListener('click', function() {
@@ -320,10 +336,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isOpening) {
                 answer.style.maxHeight = answer.scrollHeight + 'px';
                 answer.style.opacity = '1';
-                answer.style.paddingTop = '15px';
-                answer.style.marginBottom = '15px';
+                answer.style.padding = '15px 0';
                 icon.textContent = '−';
                 question.setAttribute('aria-expanded', 'true');
+                
+                // Smooth scroll to keep question visible when opened
+                question.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         });
         
@@ -345,70 +363,53 @@ document.addEventListener('DOMContentLoaded', function() {
             
             answer.style.maxHeight = '0';
             answer.style.opacity = '0';
-            answer.style.paddingTop = '0';
-            answer.style.marginBottom = '0';
+            answer.style.padding = '0';
             icon.textContent = '+';
             question.setAttribute('aria-expanded', 'false');
         });
     }
     
-    // Make toggle function available globally for onclick attributes
-    window.toggleFAQ = function(index) {
+    function toggleFAQ(index) {
         const item = document.querySelector(`.faq-item:nth-child(${index})`);
         if (item) {
             item.querySelector('.faq-question').click();
         }
-    };
-});
+    }
+    
+    window.toggleFAQ = toggleFAQ;
 
+    // ===== Responsive Image Loading =====
+    function loadResponsiveImages() {
+        const images = document.querySelectorAll('img[data-srcset]');
+        images.forEach(img => {
+            const srcset = window.innerWidth >= 768 ? 
+                img.getAttribute('data-srcset') : 
+                img.getAttribute('data-src-mobile') || img.getAttribute('data-srcset');
+            if (srcset) {
+                img.srcset = srcset;
+            }
+        });
+    }
+    
+    // Run on load and resize
+    window.addEventListener('load', loadResponsiveImages);
+    window.addEventListener('resize', loadResponsiveImages);
 
-
-// Hamburger Menu Toggle Functionality
-document.addEventListener('DOMContentLoaded', function() {
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks'); // Make sure this matches your nav element ID
-  
-  if (hamburger && navLinks) {
-      // Toggle menu function
-      function toggleMenu() {
-          hamburger.classList.toggle('active');
-          navLinks.classList.toggle('active');
-          
-          // Toggle body overflow to prevent scrolling when menu is open
-          document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
-          
-          // Update aria-expanded attribute for accessibility
-          const isExpanded = hamburger.classList.contains('active');
-          hamburger.setAttribute('aria-expanded', isExpanded);
-      }
-      
-      // Click event for hamburger
-      hamburger.addEventListener('click', toggleMenu);
-      
-      // Close menu when clicking on nav links (optional)
-      const navItems = navLinks.querySelectorAll('a');
-      navItems.forEach(item => {
-          item.addEventListener('click', function() {
-              if (navLinks.classList.contains('active')) {
-                  toggleMenu();
-              }
-          });
-      });
-      
-      // Close menu when pressing Escape key
-      document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-              toggleMenu();
-          }
-      });
-      
-      // Close menu when clicking outside (optional)
-      document.addEventListener('click', function(e) {
-          if (navLinks.classList.contains('active') && 
-              !e.target.closest('#navLinks') && 
-              !e.target.closest('#hamburger')) {
-              toggleMenu();
-          }
-      });
-  }
+    // ===== Window Resize Handler =====
+    function handleResize() {
+        // Close mobile menu if window is resized to desktop size
+        if (window.innerWidth > 992 && navLinks && navLinks.classList.contains('active')) {
+            toggleMenu();
+        }
+        
+        // Reload responsive images
+        loadResponsiveImages();
+    }
+    
+    // Throttle resize events
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(handleResize, 100);
+    });
 });
